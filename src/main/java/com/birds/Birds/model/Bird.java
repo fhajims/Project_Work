@@ -27,6 +27,9 @@ public class Bird {
     @Column(name = "color")
     private String color;
 
+    @Column(name = "flightless")
+    private Boolean flightless;
+
     @Column(name = "wing_span")
     private Double wingSpan;
 
@@ -50,6 +53,9 @@ public class Bird {
 
     @Column(name = "youtube_link")
     private String youtubeLink;
+
+    @Column(name = "type")
+    private String type;
 
     @JsonIgnore
     @OneToMany(mappedBy = "bird", cascade = CascadeType.ALL, orphanRemoval = true)

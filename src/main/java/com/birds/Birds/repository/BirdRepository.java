@@ -13,4 +13,6 @@ public interface BirdRepository extends JpaRepository<Bird, Long> {
     List<Bird> findByFlightlessTrue();
 
     List<Bird> findBySpecies(String species);
+
+
 }
