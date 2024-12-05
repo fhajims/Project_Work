@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.birds.Birds.config;
 
 import org.modelmapper.ModelMapper;
@@ -11,4 +12,7 @@ public class ModelMapperConfig {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+=======
+package com.birds.Birds.config;public class ModelMapperConfig {
+>>>>>>> ff5ccdb (Working Status)
 }
