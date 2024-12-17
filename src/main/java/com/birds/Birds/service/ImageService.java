@@ -1,0 +1,48 @@
+package com.birds.Birds.service;
+import com.birds.Birds.repository.ImageRepository;
+import com.birds.Birds.service.ServiceInterfaces.IImageService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+
+
+@RequiredArgsConstructor
+@Service
+public class ImageService implements IImageService {
+
+    private final ImageRepository imageRepository;
+
+    @Value("${upload.dir}")
+    private String uploadDir;
+
+    public String saveImage(MultipartFile file) throws IOException {
+
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("File is empty");
+        }
+
+        try {
+            Path path = Paths.get(uploadDir, file.getOriginalFilename());
+            Files.write(path, file.getBytes());
+            return "File uploaded successfully: " + path.toString();
+        } catch (IOException e) {
+            // Log the exception and rethrow
+            throw new IOException("Failed to upload file", e);
+        }
+    }
+
+
+}
