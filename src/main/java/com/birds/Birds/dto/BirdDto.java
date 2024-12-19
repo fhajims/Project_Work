@@ -13,6 +13,7 @@ public class BirdDto {
     private Long id;
     private String species;
     private String color;
+    private Boolean flightless; // Added field
     private Double wingSpan;
     private Double beakLength;
     private String habitat;
@@ -21,6 +22,7 @@ public class BirdDto {
     private String migrationPattern;
     private String imageUrl;
     private String youtubeLink;
+    private String type;
     private String conservationStatus;
 }
 
