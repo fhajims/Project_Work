@@ -37,5 +37,7 @@ public class ConservationStatus {
 
     @Column(name = "geographic_range")
     private String geographicRange;
+
+
 }
 
