@@ -38,6 +38,21 @@ public class ConservationStatus {
     @Column(name = "geographic_range")
     private String geographicRange;
 
+    @Override
+    public String toString() {
+        return String.format(
+                "{ \"id\": %d, \"status\": \"%s\", \"name\": \"%s\", \"description\": \"%s\", \"iucnCode\": \"%s\", \"yearAssessed\": %d, \"populationTrend\": \"%s\", \"geographicRange\": \"%s\" }",
+                id,
+                status,
+                name,
+                description,
+                iucnCode,
+                yearAssessed,
+                populationTrend,
+                geographicRange
+        );
+    }
+
 
 }
 
