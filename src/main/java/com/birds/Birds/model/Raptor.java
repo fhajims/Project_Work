@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Collections;
+import java.util.HashSet;
+
 @Getter
 @Setter
 @Entity
@@ -22,4 +25,12 @@ public class Raptor extends Bird {
 
     @Column(name = "hunting_style")
     private String huntingStyle;
+
+    public Raptor(Long id, String species, String color, Boolean flightless, Double wingSpan, Double beakLength, String habitat, String diet, Integer averageLifespan, String migrationPattern, String imageUrl, String youtubeLink, String type, HashSet<Observation> observations, ConservationStatus conservationStatus, Double talonLength, String nestingHabitat, String huntingStyle) {
+        super(id, species, color, flightless, wingSpan, beakLength, habitat, diet, averageLifespan, migrationPattern, imageUrl, youtubeLink, type, observations, conservationStatus);
+        this.talonLength = talonLength;
+        this.nestingHabitat = nestingHabitat;
+        this.huntingStyle = huntingStyle;
+    }
+
 }

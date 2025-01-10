@@ -15,6 +15,9 @@ public class RaptorService implements IRaptorService {
 
     private final RaptorRepository raptorRepository;
 
+    public Raptor findRaptorById(Long id) {
+        return raptorRepository.findById(id).orElse(null);
+    }
 
     @Override
     public List<Raptor> findAllRaptors() {
