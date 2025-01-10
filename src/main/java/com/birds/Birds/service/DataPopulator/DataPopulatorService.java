@@ -65,34 +65,11 @@ public class DataPopulatorService {
         Bird[] birds = {
 
                 new Bird(null, "Kakapo", "Green with yellow and brown", true, 0.75, 0.15, "New Zealand forests", "Fruits and nuts", 90, "Non-migratory", "http://localhost:8081/images/kakapo.jpg", "9T1vfsHYiKY", "Parrot", new HashSet<>(), statuses[1]),
-                new Bird(null, "American Robin", "Red breast with grayish-brown wings", false, 0.25, 0.05, "North American gardens and forests", "Insects and fruits", 2, "Migratory", "http://localhost:8081/images/robin.png", "NMkQbi2eZa0", "Songbird", new HashSet<>(), statuses[4]),
                 new Bird(null, "Common Raven", "Black with iridescent sheen", false, 1.3, 0.7, "Various habitats across the Northern Hemisphere", "Omnivorous", 20, "Resident", "http://localhost:8081/images/kolkrabe.png", "L65Q5LTDhZQ", "Corvid", new HashSet<>(), statuses[5]),
-                new Bird(null, "Eurasian Bullfinch", "Bright red breast and cheeks, black cap, gray back", false, 0.18, 0.03, "European and Asian woodlands and gardens", "Seeds and buds", 4, "Resident", "http://localhost:8081/images/eurasianbullfinch.jpg", "Of6iALKAFbw" +
-                        "", "Songbird", new HashSet<>(), statuses[4]),
-                new Bird(null, "Wagtail", "Black and white with long tail", false, 0.25, 0.02, "Open country, often near water", "Insects", 3, "Resident", "http://localhost:8081/images/wagtail.jpg", "XD8i2fSgPug", "Songbird", new HashSet<>(), statuses[4])
-
         };
 
 
-        Image[] images = {
-                new Image(null, "california_condor_1.jpg", "http://localhost:8081/images/infantry_section.png", birds[0]),
-                new Image(null, "california_condor_2.jpg", "/images/california_condor_2.jpg", birds[0]),
-                new Image(null, "kakapo_1.jpg", "/images/kakapo_1.jpg", birds[1]),
-                new Image(null, "harpy_eagle_1.jpg", "/images/harpy_eagle_1.jpg", birds[2]),
-                new Image(null, "bald_eagle_1.jpg", "/images/bald_eagle_1.jpg", birds[3]),
-                new Image(null, "american_robin_1.jpg", "/images/american_robin_1.jpg", birds[4]),
-                new Image(null, "american_robin_2.jpg", "/images/american_robin_2.jpg", birds[4])
-        };
 
-        Observation[] observations = {
-
-                new Observation(null, LocalDateTime.of(2024, 8, 1, 10, 30), "California, USA", "Seen near the Grand Canyon. First sighting in the area in decades.", birds[0]),
-                new Observation(null, LocalDateTime.of(2024, 8, 2, 11, 0), "New Zealand", "Observed in the forest reserve during a conservation survey.", birds[1]),
-                new Observation(null, LocalDateTime.of(2024, 8, 3, 14, 15), "Amazon Rainforest", "Harpy Eagle spotted hunting in the dense canopy.", birds[2]),
-                new Observation(null, LocalDateTime.of(2024, 8, 4, 9, 45), "Florida, USA", "Bald Eagle observed nesting near a river.", birds[3]),
-                new Observation(null, LocalDateTime.of(2024, 8, 5, 16, 30), "New York, USA", "American Robin observed feeding in a city park.", birds[4])
-
-        };
 
         Raptor[] raptors = {
                 new Raptor(null, "California Condor", "Black with white patches", false, 2.9, 0.3, "California Condor habitat", "Carrion", 60, "Resident", "http://localhost:8081/images/californiacondor.png", "Omkpr7n1jCU", "Raptor", new HashSet<>(), statuses[0], 12.0, "Cliffs", "Soaring"),
@@ -104,6 +81,28 @@ public class DataPopulatorService {
                 new Songbird(null, "American Robin", "Red breast with grayish-brown wings", false, 0.25, 0.05, "North American gardens and forests", "Insects and fruits", 2, "Migratory", "http://localhost:8081/images/robin.png", "NMkQbi2eZa0", "Songbird", new HashSet<>(), statuses[4], "Melodious", "Non-territorial", "Cup-shaped"),
                 new Songbird(null, "Eurasian Bullfinch", "Bright red breast and cheeks, black cap, gray back", false, 0.18, 0.03, "European and Asian woodlands and gardens", "Seeds and buds", 4, "Resident", "http://localhost:8081/images/eurasianbullfinch.jpg", "Of6iALKAFbw", "Songbird", new HashSet<>(), statuses[2], "Sweet", "Territorial", "Cup-shaped"),
                 new Songbird(null, "Wagtail", "Black and white with long tail", false, 0.25, 0.02, "Open country, often near water", "Insects", 3, "Resident", "http://localhost:8081/images/wagtail.jpg", "XD8i2fSgPug", "Songbird", new HashSet<>(), statuses[1], "Chirpy", "Territorial", "Open")
+        };
+
+
+        Observation[] observations = {
+
+                new Observation(null, LocalDateTime.of(2024, 8, 1, 10, 30), "California, USA", "Seen near the Grand Canyon. First sighting in the area in decades.", raptors[0]),
+                new Observation(null, LocalDateTime.of(2024, 8, 2, 11, 0), "New Zealand", "Observed in the forest reserve during a conservation survey.", birds[1]),
+                new Observation(null, LocalDateTime.of(2024, 8, 3, 14, 15), "Amazon Rainforest", "Harpy Eagle spotted hunting in the dense canopy.", raptors[1]),
+                new Observation(null, LocalDateTime.of(2024, 8, 4, 9, 45), "Florida, USA", "Bald Eagle observed nesting near a river.", raptors[2]),
+                new Observation(null, LocalDateTime.of(2024, 8, 5, 16, 30), "New York, USA", "American Robin observed feeding in a city park.", songbirds[0])
+
+        };
+
+
+        Image[] images = {
+                new Image(null, "california_condor_1.jpg", "http://localhost:8081/images/infantry_section.png", raptors[0]),
+                new Image(null, "california_condor_2.jpg", "/images/california_condor_2.jpg", raptors[0]),
+                new Image(null, "kakapo_1.jpg", "/images/kakapo_1.jpg", birds[0]),
+                new Image(null, "harpy_eagle_1.jpg", "/images/harpy_eagle_1.jpg", raptors[1]),
+                new Image(null, "bald_eagle_1.jpg", "/images/bald_eagle_1.jpg", raptors[2]),
+                new Image(null, "american_robin_1.jpg", "/images/american_robin_1.jpg", songbirds[0]),
+                new Image(null, "american_robin_2.jpg", "/images/american_robin_2.jpg", songbirds[0])
         };
 
 
