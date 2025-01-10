@@ -5,6 +5,7 @@ import com.birds.Birds.model.ConservationStatus;
 import com.birds.Birds.repository.BirdRepository;
 
 import com.birds.Birds.service.ServiceInterfaces.IBirdService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,16 +14,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class BirdService implements IBirdService {
 
     private final BirdRepository birdRepository;
     private final ModelMapper modelMapper;
-
-    public BirdService(BirdRepository birdRepository, ModelMapper modelMapper) {
-        this.birdRepository = birdRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public List<Bird> findAllBirds() {
@@ -110,7 +107,7 @@ public class BirdService implements IBirdService {
         return birdRepository.findByFlightlessTrue();
     }
     public List<Bird> findAllParrots() {
-        return birdRepository.findBySpecies("Parrot");
+        return birdRepository.findByType("Parrot");
     }
 
 }
