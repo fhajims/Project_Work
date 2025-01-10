@@ -1,5 +1,6 @@
 package com.birds.Birds.service.ServiceInterfaces;
 
+import com.birds.Birds.model.ConservationStatus;
 import org.springframework.http.ResponseEntity;
 import com.birds.Birds.dto.BirdDto;
 import com.birds.Birds.model.Bird;
@@ -13,6 +14,16 @@ public interface IBirdService {
     ResponseEntity<BirdDto> getBirdAndConvertItToDto(Long id);
     Bird findBird(Long id);
     Bird getBirdById(long id);
+
+    Bird findBirdById(Long id);
+
+    public List<Bird> findByConservationStatus(ConservationStatus status);
+
+    public List<Bird> findAllSongbirds();
+
+    public List<Bird> findAllFlightlessBirds();
+
+    public List<Bird> findAllParrots();
 
     List<BirdDto> getSongbirds();
     List<BirdDto> getFlightlessBirds();

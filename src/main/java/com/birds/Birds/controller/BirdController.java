@@ -1,5 +1,7 @@
 package com.birds.Birds.controller;
 
+import com.birds.Birds.service.ServiceInterfaces.IBirdService;
+import com.birds.Birds.service.ServiceInterfaces.IConservationStatusService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -19,8 +21,8 @@ import java.util.stream.Collectors;
 @RestController
 public class BirdController {
 
-    private final BirdService birdService;
-    private final ConservationStatusService conservationStatusService;
+    private final IBirdService birdService;
+    private final IConservationStatusService conservationStatusService;
     private final ModelMapper modelMapper;
 
     @PostMapping("/add")

@@ -11,6 +11,9 @@ public interface IConservationStatusService {
     List<ConservationStatus> findAllConservationStatuses();
     ConservationStatus addConservationStatus(ConservationStatus status);
     ConservationStatus updateConservationStatus(ConservationStatus status);
+
+    ConservationStatus findById(Long statusId);
+
     void deleteConservationStatus(Long id);
 }
 
