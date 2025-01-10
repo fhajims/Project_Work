@@ -59,16 +59,16 @@ public class DataPopulatorService {
         };
 
         Bird[] birds = {
-                new Bird(null, "California Condor", "Black with white patches", false, 2.9, 0.3, "California Condor habitat", "Carrion", 60, "Resident", null, null, "Raptor", new HashSet<>(), statuses[0]),
-                new Bird(null, "Kakapo", "Green with yellow and brown", true, 0.75, 0.15, "New Zealand forests", "Fruits and nuts", 90, "Non-migratory", null, null, "Parrot", new HashSet<>(), statuses[1]),
+                new Bird(null, "California Condor", "Black with white patches", false, 2.9, 0.3, "California Condor habitat", "Carrion", 60, "Resident", "http://localhost:8081/images/californiacondor.png", "https://www.youtube.com/shorts/WnqkDmCoSbc", "Raptor", new HashSet<>(), statuses[0]),
+                new Bird(null, "Kakapo", "Green with yellow and brown", true, 0.75, 0.15, "New Zealand forests", "Fruits and nuts", 90, "Non-migratory", "http://localhost:8081/images/kakapo.jpg", null, "Parrot", new HashSet<>(), statuses[1]),
                 new Bird(null, "Harpy Eagle", "Dark brown with white head", false, 2.0, 0.25, "Tropical rainforests", "Medium-sized mammals and birds", 35, "Resident", null, null, "Raptor", new HashSet<>(), statuses[2]),
                 new Bird(null, "Bald Eagle", "Dark brown with white head and tail", false, 2.3, 0.25, "North American lakes and rivers", "Fish", 20, "Migratory", null, null, "Raptor", new HashSet<>(), statuses[3]),
-                new Bird(null, "American Robin", "Red breast with grayish-brown wings", false, 0.25, 0.05, "North American gardens and forests", "Insects and fruits", 2, "Migratory", null, null, "Songbird", new HashSet<>(), statuses[4])
+                new Bird(null, "American Robin", "Red breast with grayish-brown wings", false, 0.25, 0.05, "North American gardens and forests", "Insects and fruits", 2, "Migratory", "http://localhost:8081/images/robin.png", "NMkQbi2eZa0", "Songbird", new HashSet<>(), statuses[4])
         };
 
 
         Image[] images = {
-                new Image(null, "california_condor_1.jpg", "/images/california_condor_1.jpg", birds[0]),
+                new Image(null, "california_condor_1.jpg", "http://localhost:8081/images/infantry_section.png", birds[0]),
                 new Image(null, "california_condor_2.jpg", "/images/california_condor_2.jpg", birds[0]),
                 new Image(null, "kakapo_1.jpg", "/images/kakapo_1.jpg", birds[1]),
                 new Image(null, "harpy_eagle_1.jpg", "/images/harpy_eagle_1.jpg", birds[2]),

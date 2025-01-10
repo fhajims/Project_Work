@@ -13,7 +13,7 @@ public class BirdDto {
     private Long id;
     private String species;
     private String color;
-    private Boolean flightless; // Added field
+    private Boolean flightless;
     private Double wingSpan;
     private Double beakLength;
     private String habitat;
