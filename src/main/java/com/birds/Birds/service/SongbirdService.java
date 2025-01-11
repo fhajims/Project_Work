@@ -1,5 +1,9 @@
 package com.birds.Birds.service;
 
+import com.birds.Birds.dto.ConservationStatusDto;
+import com.birds.Birds.dto.RaptorDto;
+import com.birds.Birds.dto.SongbirdDto;
+import com.birds.Birds.model.ConservationStatus;
 import com.birds.Birds.model.Raptor;
 import com.birds.Birds.model.Songbird;
 import com.birds.Birds.repository.RaptorRepository;
@@ -25,6 +29,40 @@ public class SongbirdService implements ISongbirdService {
     @Override
     public List<Songbird> findAllSongbirds() {
         return songbirdRepository.findAll();
+    }
+
+    public SongbirdDto convertToDto(Songbird songbird) {
+        ConservationStatus status = songbird.getConservationStatus();
+        ConservationStatusDto statusDto = new ConservationStatusDto(
+                status.getId(),
+                status.getStatus(),
+                status.getName(),
+                status.getDescription(),
+                status.getIucnCode(),
+                status.getYearAssessed(),
+                status.getPopulationTrend(),
+                status.getGeographicRange()
+        );
+
+        return new SongbirdDto(
+                songbird.getId(),
+                songbird.getSpecies(),
+                songbird.getColor(),
+                songbird.getFlightless(),
+                songbird.getWingSpan(),
+                songbird.getBeakLength(),
+                songbird.getHabitat(),
+                songbird.getDiet(),
+                songbird.getAverageLifespan(),
+                songbird.getMigrationPattern(),
+                songbird.getImageUrl(),
+                songbird.getYoutubeLink(),
+                songbird.getType(),
+                statusDto,
+                songbird.getSongType(),
+                songbird.getTerritorialBehavior(),
+                songbird.getNestingStyle()
+        );
     }
 }
 

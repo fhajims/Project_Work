@@ -22,6 +22,8 @@ public class DataPopulatorService {
 
     private final SongbirdRepository songbirdRepository;
 
+    private final ParrotRepository parrotRepository;
+
 
 
     @PostConstruct
@@ -64,12 +66,14 @@ public class DataPopulatorService {
 
         Bird[] birds = {
 
-                new Bird(null, "Kakapo", "Green with yellow and brown", true, 0.75, 0.15, "New Zealand forests", "Fruits and nuts", 90, "Non-migratory", "http://localhost:8081/images/kakapo.jpg", "9T1vfsHYiKY", "Parrot", new HashSet<>(), statuses[1]),
+
                 new Bird(null, "Common Raven", "Black with iridescent sheen", false, 1.3, 0.7, "Various habitats across the Northern Hemisphere", "Omnivorous", 20, "Resident", "http://localhost:8081/images/kolkrabe.png", "L65Q5LTDhZQ", "Corvid", new HashSet<>(), statuses[5]),
         };
 
 
-
+        Parrot[] parrots = {
+                new Parrot(null, "Kakapo", "Green with yellow and brown", true, 0.75, 0.15, "New Zealand forests", "Fruits and nuts", 90, "Non-migratory", "http://localhost:8081/images/kakapo.jpg", "9T1vfsHYiKY", "Parrot", new HashSet<>(), statuses[1], "green", "super intelligent", "astounding")
+        };
 
         Raptor[] raptors = {
                 new Raptor(null, "California Condor", "Black with white patches", false, 2.9, 0.3, "California Condor habitat", "Carrion", 60, "Resident", "http://localhost:8081/images/californiacondor.png", "Omkpr7n1jCU", "Raptor", new HashSet<>(), statuses[0], 12.0, "Cliffs", "Soaring"),
@@ -87,7 +91,7 @@ public class DataPopulatorService {
         Observation[] observations = {
 
                 new Observation(null, LocalDateTime.of(2024, 8, 1, 10, 30), "California, USA", "Seen near the Grand Canyon. First sighting in the area in decades.", raptors[0]),
-                new Observation(null, LocalDateTime.of(2024, 8, 2, 11, 0), "New Zealand", "Observed in the forest reserve during a conservation survey.", birds[1]),
+                new Observation(null, LocalDateTime.of(2024, 8, 2, 11, 0), "New Zealand", "Observed in the forest reserve during a conservation survey.", parrots[0]),
                 new Observation(null, LocalDateTime.of(2024, 8, 3, 14, 15), "Amazon Rainforest", "Harpy Eagle spotted hunting in the dense canopy.", raptors[1]),
                 new Observation(null, LocalDateTime.of(2024, 8, 4, 9, 45), "Florida, USA", "Bald Eagle observed nesting near a river.", raptors[2]),
                 new Observation(null, LocalDateTime.of(2024, 8, 5, 16, 30), "New York, USA", "American Robin observed feeding in a city park.", songbirds[0])
@@ -110,6 +114,10 @@ public class DataPopulatorService {
 
         for (ConservationStatus status : statuses) {
             conservationStatusRepository.save(status);
+        }
+
+        for (Parrot parrot : parrots) {
+            parrotRepository.save(parrot);
         }
 
         for (Songbird songbird : songbirds) {
