@@ -7,6 +7,7 @@ import com.birds.Birds.model.Bird;
 import com.birds.Birds.model.ConservationStatus;
 import com.birds.Birds.model.Raptor;
 import com.birds.Birds.service.RaptorService;
+import com.birds.Birds.service.ServiceInterfaces.IRaptorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 public class RaptorController {
 
 
-    private final RaptorService raptorService;
+    private final IRaptorService raptorService;
 
 
     @GetMapping("/all")
