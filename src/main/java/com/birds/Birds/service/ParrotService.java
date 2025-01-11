@@ -7,6 +7,7 @@ import com.birds.Birds.model.ConservationStatus;
 import com.birds.Birds.model.Parrot;
 import com.birds.Birds.model.Songbird;
 import com.birds.Birds.repository.ParrotRepository;
+import com.birds.Birds.service.ServiceInterfaces.IParrotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ParrotService {
+public class ParrotService implements IParrotService {
 
     private final ParrotRepository parrotRepository;
 
