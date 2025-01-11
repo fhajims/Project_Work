@@ -1,4 +1,4 @@
-package com.birds.Birds.controller;
+package com.birds.Birds.service;
 
 import com.birds.Birds.dto.ConservationStatusDto;
 import com.birds.Birds.dto.ParrotDto;
@@ -6,48 +6,25 @@ import com.birds.Birds.dto.SongbirdDto;
 import com.birds.Birds.model.ConservationStatus;
 import com.birds.Birds.model.Parrot;
 import com.birds.Birds.model.Songbird;
-import com.birds.Birds.service.ParrotService;
+import com.birds.Birds.repository.ParrotRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-
-@RestController
-@RequestMapping("/parrots")
+@Service
 @RequiredArgsConstructor
-public class ParrotController {
+public class ParrotService {
 
-    private final ParrotService parrotService;
+    private final ParrotRepository parrotRepository;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<ParrotDto>> getAllParrots() {
-        List<Parrot> parrots = parrotService.findAllParrots();
-        if (parrots.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        List<ParrotDto> parrotDtos = parrots.stream()
-                .map(parrotService::convertToDto)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(parrotDtos);
+    public List<Parrot> findAllParrots() {
+        return parrotRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ParrotDto> getRaptorById(@PathVariable Long id) {
-        Parrot parrot = parrotService.findParrotById(id);
-        if (parrot == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        ParrotDto parrotDto = parrotService.convertToDto(parrot);
-        return ResponseEntity.ok(parrotDto);
+    public Parrot findParrotById(Long id) {
+        return parrotRepository.findById(id).orElse(null);
     }
-
 
     public ParrotDto convertToDto(Parrot parrot) {
         ConservationStatus status = parrot.getConservationStatus();
@@ -79,8 +56,9 @@ public class ParrotController {
                 statusDto,
                 parrot.getColorVariation(),
                 parrot.getIntelligenceLevel(),
-                parrot.getVocalAbility());
+                parrot.getVocalAbility()
+        );
     }
+
+
 }
-
-

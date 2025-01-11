@@ -34,7 +34,7 @@ public class RaptorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         List<RaptorDto> raptorDtos = raptors.stream()
-                .map(this::convertToDto)
+                .map(raptorService::convertToDto)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(raptorDtos);
     }
@@ -45,43 +45,11 @@ public class RaptorController {
         if (raptor == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        RaptorDto raptorDto = convertToDto(raptor);
+        RaptorDto raptorDto = raptorService.convertToDto(raptor);
         return ResponseEntity.ok(raptorDto);
     }
 
-    public RaptorDto convertToDto(Raptor raptor) {
-        ConservationStatus status = raptor.getConservationStatus();
-        ConservationStatusDto statusDto = new ConservationStatusDto(
-                status.getId(),
-                status.getStatus(),
-                status.getName(),
-                status.getDescription(),
-                status.getIucnCode(),
-                status.getYearAssessed(),
-                status.getPopulationTrend(),
-                status.getGeographicRange()
-        );
 
-        return new RaptorDto(
-                raptor.getId(),
-                raptor.getSpecies(),
-                raptor.getColor(),
-                raptor.getFlightless(),
-                raptor.getWingSpan(),
-                raptor.getBeakLength(),
-                raptor.getHabitat(),
-                raptor.getDiet(),
-                raptor.getAverageLifespan(),
-                raptor.getMigrationPattern(),
-                raptor.getImageUrl(),
-                raptor.getYoutubeLink(),
-                raptor.getType(),
-                statusDto,
-                raptor.getTalonLength(),
-                raptor.getNestingHabitat(),
-                raptor.getHuntingStyle()
-        );
-    }
 
 
 }

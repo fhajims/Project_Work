@@ -1,6 +1,9 @@
 package com.birds.Birds.service;
 
+import com.birds.Birds.dto.ConservationStatusDto;
+import com.birds.Birds.dto.RaptorDto;
 import com.birds.Birds.model.Bird;
+import com.birds.Birds.model.ConservationStatus;
 import com.birds.Birds.repository.RaptorRepository;
 import com.birds.Birds.service.ServiceInterfaces.IRaptorService;
 import lombok.RequiredArgsConstructor;
@@ -23,4 +26,41 @@ public class RaptorService implements IRaptorService {
     public List<Raptor> findAllRaptors() {
         return raptorRepository.findAll();
     }
+
+
+    public RaptorDto convertToDto(Raptor raptor) {
+        ConservationStatus status = raptor.getConservationStatus();
+        ConservationStatusDto statusDto = new ConservationStatusDto(
+                status.getId(),
+                status.getStatus(),
+                status.getName(),
+                status.getDescription(),
+                status.getIucnCode(),
+                status.getYearAssessed(),
+                status.getPopulationTrend(),
+                status.getGeographicRange()
+        );
+
+        return new RaptorDto(
+                raptor.getId(),
+                raptor.getSpecies(),
+                raptor.getColor(),
+                raptor.getFlightless(),
+                raptor.getWingSpan(),
+                raptor.getBeakLength(),
+                raptor.getHabitat(),
+                raptor.getDiet(),
+                raptor.getAverageLifespan(),
+                raptor.getMigrationPattern(),
+                raptor.getImageUrl(),
+                raptor.getYoutubeLink(),
+                raptor.getType(),
+                statusDto,
+                raptor.getTalonLength(),
+                raptor.getNestingHabitat(),
+                raptor.getHuntingStyle()
+        );
+    }
+
+
 }
