@@ -12,7 +12,9 @@ import com.birds.Birds.model.Bird;
 import com.birds.Birds.model.ConservationStatus;
 import com.birds.Birds.service.BirdService;
 import com.birds.Birds.service.ConservationStatusService;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,11 +27,72 @@ public class BirdController {
     private final IConservationStatusService conservationStatusService;
     private final ModelMapper modelMapper;
 
+    private final ImageController imageController;
+
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addBird(
+            @RequestParam("species") String species,
+            @RequestParam("color") String color,
+            @RequestParam("flightless") boolean flightless,
+            @RequestParam("wingSpan") String wingSpan,
+            @RequestParam("beakLength") String beakLength,
+            @RequestParam("habitat") String habitat,
+            @RequestParam("diet") String diet,
+            @RequestParam("averageLifespan") String averageLifespan,
+            @RequestParam("migrationPattern") String migrationPattern,
+            @RequestParam("youtubeLink") String youtubeLink,
+            @RequestParam("type") String type,
+            @RequestParam(value = "image", required = false) MultipartFile image) {
+
+        try {
+
+            Bird bird = new Bird();
+            bird.setSpecies(species);
+            bird.setColor(color);
+            bird.setFlightless(flightless);
+            bird.setWingSpan(Double.parseDouble(wingSpan));
+            bird.setBeakLength(Double.parseDouble(beakLength));
+            bird.setHabitat(habitat);
+            bird.setDiet(diet);
+            bird.setAverageLifespan(Integer.parseInt(averageLifespan));
+            bird.setMigrationPattern(migrationPattern);
+            bird.setYoutubeLink(youtubeLink);
+            bird.setType(type);
+
+
+            if (image != null && !image.isEmpty()) {
+                try {
+                    String filePath = imageController.uploadImage(image);
+                    bird.setImageUrl(filePath);
+                } catch (IOException e) {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .body("Failed to upload image: " + e.getMessage());
+                }
+            }
+
+            // Save the bird and return the response
+            Bird savedBird = birdService.addBird(bird);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedBird);
+
+        } catch (NumberFormatException e) {
+            // Handle invalid number format
+            return ResponseEntity.badRequest().body("Invalid number format: " + e.getMessage());
+        } catch (Exception e) {
+            // Handle any other exceptions
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred: " + e.getMessage());
+        }
+    }
+/*
     @PostMapping("/add")
     public ResponseEntity<Bird> addBird(@RequestBody Bird bird) {
         Bird savedBird = birdService.addBird(bird);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBird);
     }
+
+
+ */
 
     @GetMapping("/{id}")
     public ResponseEntity<BirdDto> getBirdById(@PathVariable Long id) {
@@ -109,4 +172,6 @@ public class BirdController {
         }
         return birdDto;
     }
+
+
 }

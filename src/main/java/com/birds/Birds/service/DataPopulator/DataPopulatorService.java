@@ -55,7 +55,10 @@ public class DataPopulatorService {
                 new ConservationStatus(null, "Vulnerable", "Laysan Albatross", "Known for its long-distance flying capabilities", "R8r", 2024, "Decreasing", "Pacific Ocean"),
                 new ConservationStatus(null, "Near Threatened", "Northern Bald Ibis", "Distinctive bald-headed ibis found in parts of Europe", "S9s", 2024, "Stable", "Europe, North Africa"),
                 new ConservationStatus(null, "Least Concern", "Common Starling", "Highly adaptable bird found in many regions", "T0t", 2024, "Stable", "Europe, Asia, North America"),
-                new ConservationStatus(null, "Critically Endangered", "Spoon-billed Sandpiper", "Small wader with distinctive spoon-shaped bill", "U1u", 2024, "Decreasing", "East Asia")
+                new ConservationStatus(null, "Critically Endangered", "Spoon-billed Sandpiper", "Small wader with distinctive spoon-shaped bill", "U1u", 2024, "Decreasing", "East Asia"),
+                new ConservationStatus(null, "Least Concern", "Pied Wagtail", "Small, slender bird known for its distinctive wagging tail behavior", "V2v", 2024, "Stable", "Europe, Asia, Africa"),
+                new ConservationStatus(null, "Least Concern", "Eurasian Bullfinch", "Small, stocky bird with a distinctive bright red breast", "W3w", 2024, "Stable", "Europe, Asia")
+
         };
 
 
@@ -83,8 +86,8 @@ public class DataPopulatorService {
 
         Songbird[] songbirds = {
                 new Songbird(null, "American Robin", "Red breast with grayish-brown wings", false, 0.25, 0.05, "North American gardens and forests", "Insects and fruits", 2, "Migratory", "http://localhost:8081/images/robin.png", "NMkQbi2eZa0", "Songbird", new HashSet<>(), statuses[4], "Melodious", "Non-territorial", "Cup-shaped"),
-                new Songbird(null, "Eurasian Bullfinch", "Bright red breast and cheeks, black cap, gray back", false, 0.18, 0.03, "European and Asian woodlands and gardens", "Seeds and buds", 4, "Resident", "http://localhost:8081/images/eurasianbullfinch.jpg", "Of6iALKAFbw", "Songbird", new HashSet<>(), statuses[2], "Sweet", "Territorial", "Cup-shaped"),
-                new Songbird(null, "Wagtail", "Black and white with long tail", false, 0.25, 0.02, "Open country, often near water", "Insects", 3, "Resident", "http://localhost:8081/images/wagtail.jpg", "XD8i2fSgPug", "Songbird", new HashSet<>(), statuses[1], "Chirpy", "Territorial", "Open")
+                new Songbird(null, "Eurasian Bullfinch", "Bright red breast and cheeks, black cap, gray back", false, 0.18, 0.03, "European and Asian woodlands and gardens", "Seeds and buds", 4, "Resident", "http://localhost:8081/images/eurasianbullfinch.jpg", "Of6iALKAFbw", "Songbird", new HashSet<>(), statuses[22], "Sweet", "Territorial", "Cup-shaped"),
+                new Songbird(null, "Wagtail", "Black and white with long tail", false, 0.25, 0.02, "Open country, often near water", "Insects", 3, "Resident", "http://localhost:8081/images/wagtail.jpg", "XD8i2fSgPug", "Songbird", new HashSet<>(), statuses[21], "Chirpy", "Territorial", "Open")
         };
 
 
