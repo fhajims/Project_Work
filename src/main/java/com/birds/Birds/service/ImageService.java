@@ -35,14 +35,25 @@ public class ImageService implements IImageService {
         }
 
         try {
-            Path path = Paths.get(uploadDir, file.getOriginalFilename());
-            Files.write(path, file.getBytes());
-            return "File uploaded successfully: " + path.toString();
+            // Ensure the directory exists
+            String subDir = "/src/main/java/com/birds/Birds/Files";
+            Path uploadPath = Paths.get(uploadDir);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            // Save the file
+            Path path = uploadPath.resolve(file.getOriginalFilename());
+            System.out.println("Current working directory: " + System.getProperty("user.dir"));
+            Files.write(Path.of(System.getProperty("user.dir") + subDir), file.getBytes());
+
+            // Return the file path as a string
+            return path.toString();
         } catch (IOException e) {
-            // Log the exception and rethrow
+            // Log the exception (if logging is available) and rethrow
             throw new IOException("Failed to upload file", e);
         }
+
+
     }
-
-
 }

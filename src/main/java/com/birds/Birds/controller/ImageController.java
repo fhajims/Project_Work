@@ -29,7 +29,7 @@ public class ImageController {
     String subDir = "/src/main/java/com/birds/Birds/Files";
 
     @PostMapping("/upload")
-    public String uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+    public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
         return imageService.saveImage(file);
     }
 
