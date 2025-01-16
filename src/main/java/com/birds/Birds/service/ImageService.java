@@ -34,26 +34,32 @@ public class ImageService implements IImageService {
             throw new IllegalArgumentException("File is empty");
         }
 
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("File is empty");
+        }
+
         try {
-            // Ensure the directory exists
-            String subDir = "/src/main/java/com/birds/Birds/Files";
+            // Resolve the upload directory
             Path uploadPath = Paths.get(uploadDir);
+
+            // Ensure the directory exists
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
 
             // Save the file
-            Path path = uploadPath.resolve(file.getOriginalFilename());
-            System.out.println("Current working directory: " + System.getProperty("user.dir"));
-            Files.write(Path.of(System.getProperty("user.dir") + subDir), file.getBytes());
+            Path filePath = uploadPath.resolve(file.getOriginalFilename());
+            System.out.println("Saving file to: " + filePath.toAbsolutePath());
+
+            // Write file to the specified path
+            Files.write(filePath, file.getBytes());
 
             // Return the file path as a string
-            return path.toString();
+            return filePath.toString();
         } catch (IOException e) {
             // Log the exception (if logging is available) and rethrow
             throw new IOException("Failed to upload file", e);
         }
-
 
     }
 }
