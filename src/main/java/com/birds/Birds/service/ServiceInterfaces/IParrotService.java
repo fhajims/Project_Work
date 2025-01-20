@@ -12,7 +12,7 @@ public interface IParrotService {
     Parrot findParrotById(Long id);
 
     ParrotDto convertToDto(Parrot parrot);
-    Parrot addBird(Parrot parrot);
+    Parrot addParrot(Parrot parrot);
 
 }
 
