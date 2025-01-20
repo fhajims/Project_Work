@@ -3,6 +3,7 @@ package com.birds.Birds.service;
 import com.birds.Birds.dto.ConservationStatusDto;
 import com.birds.Birds.dto.ParrotDto;
 import com.birds.Birds.dto.SongbirdDto;
+import com.birds.Birds.model.Bird;
 import com.birds.Birds.model.ConservationStatus;
 import com.birds.Birds.model.Parrot;
 import com.birds.Birds.model.Songbird;
@@ -18,6 +19,11 @@ import java.util.List;
 public class ParrotService implements IParrotService {
 
     private final ParrotRepository parrotRepository;
+
+    @Override
+    public Parrot addBird(Parrot parrot) {
+        return parrotRepository.save(parrot);
+    }
 
     public List<Parrot> findAllParrots() {
         return parrotRepository.findAll();

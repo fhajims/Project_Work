@@ -31,6 +31,11 @@ public class SongbirdService implements ISongbirdService {
         return songbirdRepository.findAll();
     }
 
+    @Override
+    public Songbird addSongbird(Songbird songbird) {
+        return songbirdRepository.save(songbird);
+    }
+
     public SongbirdDto convertToDto(Songbird songbird) {
         ConservationStatus status = songbird.getConservationStatus();
         ConservationStatusDto statusDto = new ConservationStatusDto(

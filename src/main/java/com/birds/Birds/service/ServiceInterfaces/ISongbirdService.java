@@ -8,6 +8,7 @@ public interface ISongbirdService {
 
     List<Songbird> findAllSongbirds();
 
+    Songbird addSongbird(Songbird songbird);
 
     Songbird findSongbirdById(Long id);
 

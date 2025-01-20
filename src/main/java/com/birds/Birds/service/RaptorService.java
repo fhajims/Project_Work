@@ -27,6 +27,10 @@ public class RaptorService implements IRaptorService {
         return raptorRepository.findAll();
     }
 
+    @Override
+    public Raptor addRaptor(Raptor raptor) {
+        return raptorRepository.save(raptor);
+    }
 
     public RaptorDto convertToDto(Raptor raptor) {
         ConservationStatus status = raptor.getConservationStatus();
