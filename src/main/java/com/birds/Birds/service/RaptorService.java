@@ -33,17 +33,26 @@ public class RaptorService implements IRaptorService {
     }
 
     public RaptorDto convertToDto(Raptor raptor) {
+
+        ConservationStatusDto statusDto = null;
         ConservationStatus status = raptor.getConservationStatus();
-        ConservationStatusDto statusDto = new ConservationStatusDto(
-                status.getId(),
-                status.getStatus(),
-                status.getName(),
-                status.getDescription(),
-                status.getIucnCode(),
-                status.getYearAssessed(),
-                status.getPopulationTrend(),
-                status.getGeographicRange()
-        );
+
+        if(status!= null) {
+
+
+             statusDto = new ConservationStatusDto(
+                    status.getId(),
+                    status.getStatus(),
+                    status.getName(),
+                    status.getDescription(),
+                    status.getIucnCode(),
+                    status.getYearAssessed(),
+                    status.getPopulationTrend(),
+                    status.getGeographicRange()
+            );
+
+
+        }
 
         return new RaptorDto(
                 raptor.getId(),

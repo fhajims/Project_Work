@@ -38,16 +38,23 @@ public class SongbirdService implements ISongbirdService {
 
     public SongbirdDto convertToDto(Songbird songbird) {
         ConservationStatus status = songbird.getConservationStatus();
-        ConservationStatusDto statusDto = new ConservationStatusDto(
-                status.getId(),
-                status.getStatus(),
-                status.getName(),
-                status.getDescription(),
-                status.getIucnCode(),
-                status.getYearAssessed(),
-                status.getPopulationTrend(),
-                status.getGeographicRange()
-        );
+
+        ConservationStatusDto statusDto = null;
+
+        if (status != null) {
+
+            statusDto = new ConservationStatusDto(
+                    status.getId(),
+                    status.getStatus(),
+                    status.getName(),
+                    status.getDescription(),
+                    status.getIucnCode(),
+                    status.getYearAssessed(),
+                    status.getPopulationTrend(),
+                    status.getGeographicRange()
+            );
+
+        }
 
         return new SongbirdDto(
                 songbird.getId(),

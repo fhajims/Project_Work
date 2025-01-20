@@ -21,7 +21,7 @@ public class ParrotService implements IParrotService {
     private final ParrotRepository parrotRepository;
 
     @Override
-    public Parrot addBird(Parrot parrot) {
+    public Parrot addParrot(Parrot parrot) {
         return parrotRepository.save(parrot);
     }
 
@@ -34,17 +34,25 @@ public class ParrotService implements IParrotService {
     }
 
     public ParrotDto convertToDto(Parrot parrot) {
+
+
         ConservationStatus status = parrot.getConservationStatus();
-        ConservationStatusDto statusDto = new ConservationStatusDto(
-                status.getId(),
-                status.getStatus(),
-                status.getName(),
-                status.getDescription(),
-                status.getIucnCode(),
-                status.getYearAssessed(),
-                status.getPopulationTrend(),
-                status.getGeographicRange()
-        );
+        ConservationStatusDto statusDto = null;
+
+
+        if(status != null) {
+             statusDto = new ConservationStatusDto(
+                    status.getId(),
+                    status.getStatus(),
+                    status.getName(),
+                    status.getDescription(),
+                    status.getIucnCode(),
+                    status.getYearAssessed(),
+                    status.getPopulationTrend(),
+                    status.getGeographicRange()
+            );
+
+        }
 
         return new ParrotDto(
                 parrot.getId(),
