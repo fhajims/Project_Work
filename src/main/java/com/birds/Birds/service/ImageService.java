@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 import java.io.IOException;
@@ -28,36 +29,53 @@ public class ImageService implements IImageService {
     @Value("${upload.dir}")
     private String uploadDir;
 
+    @Value("${base}")
+    private String base;
+
+    @Value("${host}")
+    private String host;
+
+    @Value("${port}")
+    private String port;
+
+
+
     public String saveImage(MultipartFile file) throws IOException {
 
         if (file.isEmpty()) {
             throw new IllegalArgumentException("File is empty");
         }
 
-        if (file.isEmpty()) {
-            throw new IllegalArgumentException("File is empty");
-        }
 
         try {
-            // Resolve the upload directory
+
             Path uploadPath = Paths.get(uploadDir);
 
-            // Ensure the directory exists
+
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
 
-            // Save the file
+
             Path filePath = uploadPath.resolve(file.getOriginalFilename());
             System.out.println("Saving file to: " + filePath.toAbsolutePath());
+            Path realFilePath = filePath.toAbsolutePath();
 
-            // Write file to the specified path
-            Files.write(filePath, file.getBytes());
+            Path lastSegment = realFilePath.getFileName();
 
-            // Return the file path as a string
-            return filePath.toString();
+            Files.write(realFilePath, file.getBytes());
+
+            String imageUrl = UriComponentsBuilder
+                    .newInstance()
+                    .host(host)
+                    .port(port)
+                    .path("/images/")
+                    .pathSegment(lastSegment.toString())
+                    .toUriString();
+
+            return imageUrl;
         } catch (IOException e) {
-            // Log the exception (if logging is available) and rethrow
+
             throw new IOException("Failed to upload file", e);
         }
 

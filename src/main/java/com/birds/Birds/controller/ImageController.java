@@ -26,7 +26,7 @@ public class ImageController {
 
 
     String baseDir = System.getProperty("user.dir");
-    String subDir = "/src/main/java/com/birds/Birds/Files";
+    String subDir = "/Files";
 
     @PostMapping("/upload")
     public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
