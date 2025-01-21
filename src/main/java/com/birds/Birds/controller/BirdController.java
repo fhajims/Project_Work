@@ -3,6 +3,7 @@ package com.birds.Birds.controller;
 import com.birds.Birds.factory.BirdFactory;
 import com.birds.Birds.model.*;
 import com.birds.Birds.request.BirdRequest;
+import com.birds.Birds.request.FormData;
 import com.birds.Birds.service.ServiceInterfaces.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -34,9 +35,10 @@ public class BirdController {
     private final ImageController imageController;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addBird(@Valid @ModelAttribute BirdRequest birdRequest) {
+    public ResponseEntity<?> addBird(@Valid FormData formData) {
 
-        return birdFactory.createBird(birdRequest);
+        //return ResponseEntity.ok(birdRequest);
+        return birdFactory.createBird(formData);
 
 
     }

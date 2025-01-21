@@ -5,15 +5,13 @@ import com.birds.Birds.model.Bird;
 import com.birds.Birds.model.Parrot;
 import com.birds.Birds.model.Raptor;
 import com.birds.Birds.model.Songbird;
-import com.birds.Birds.request.BirdRequest;
-import com.birds.Birds.request.ParrotRequest;
-import com.birds.Birds.request.RaptorRequest;
-import com.birds.Birds.request.SongbirdRequest;
+import com.birds.Birds.request.*;
 import com.birds.Birds.service.BirdService;
 import com.birds.Birds.service.ParrotService;
 import com.birds.Birds.service.RaptorService;
 import com.birds.Birds.service.SongbirdService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -32,27 +30,30 @@ public class BirdFactoryImpl implements BirdFactory {
     private final RaptorService raptorService;
     private final BirdService birdService;
 
+    private final ModelMapper modelMapper;
+
     @Override
-    public ResponseEntity<?> createBird(BirdRequest birdRequest) {
+    public ResponseEntity<?> createBird(FormData formData) {
 
         try {
             Bird bird;
-            if ("Parrot".equalsIgnoreCase(birdRequest.getType())) {
-                ParrotRequest parrotRequest = (ParrotRequest) birdRequest;
+            if ("Parrot".equalsIgnoreCase(formData.getType())) {
+
+                ParrotRequest parrotRequest = mapToParrotRequest(formData);
                 Parrot parrot = new Parrot();
                 parrot.setColorVariation(parrotRequest.getColorVariation());
                 parrot.setIntelligenceLevel(parrotRequest.getIntelligenceLevel());
                 parrot.setVocalAbility(parrotRequest.getVocalAbility());
                 bird = parrot;
-            } else if ("Songbird".equalsIgnoreCase(birdRequest.getType())) {
-                SongbirdRequest songbirdRequest = (SongbirdRequest) birdRequest;
+            } else if ("Songbird".equalsIgnoreCase(formData.getType())) {
+                SongbirdRequest songbirdRequest = mapToSongbirdRequest(formData);
                 Songbird songbird = new Songbird();
                 songbird.setNestingStyle(songbirdRequest.getNestingStyle());
                 songbird.setSongType(songbirdRequest.getSongType());
                 songbird.setTerritorialBehavior(songbirdRequest.getTerritorialBehavior());
                 bird = songbird; }
-            else if ("Raptor".equalsIgnoreCase(birdRequest.getType())) {
-                RaptorRequest raptorRequest = (RaptorRequest) birdRequest;
+            else if ("Raptor".equalsIgnoreCase(formData.getType())) {
+                RaptorRequest raptorRequest = mapToRaptorRequest(formData);
                 Raptor raptor = new Raptor();
                 raptor.setTalonLength(raptorRequest.getTalonLength());
                 raptor.setNestingHabitat(raptorRequest.getNestingHabitat());
@@ -62,21 +63,21 @@ public class BirdFactoryImpl implements BirdFactory {
                 bird = new Bird();
             }
 
-            bird.setSpecies(birdRequest.getSpecies());
-            bird.setColor(birdRequest.getColor());
-            bird.setFlightless(birdRequest.isFlightless());
-            bird.setWingSpan(Double.parseDouble(birdRequest.getWingSpan()));
-            bird.setBeakLength(Double.parseDouble(birdRequest.getBeakLength()));
-            bird.setHabitat(birdRequest.getHabitat());
-            bird.setDiet(birdRequest.getDiet());
-            bird.setAverageLifespan(Integer.parseInt(birdRequest.getAverageLifespan()));
-            bird.setMigrationPattern(birdRequest.getMigrationPattern());
-            bird.setYoutubeLink(birdRequest.getYoutubeLink());
-            bird.setType(birdRequest.getType());
+            bird.setSpecies(formData.getSpecies());
+            bird.setColor(formData.getColor());
+            bird.setFlightless(formData.isFlightless());
+            bird.setWingSpan(Double.parseDouble(String.valueOf(formData.getWingSpan())));
+            bird.setBeakLength(Double.parseDouble(formData.getBeakLength()));
+            bird.setHabitat(formData.getHabitat());
+            bird.setDiet(formData.getDiet());
+            bird.setAverageLifespan(Integer.parseInt(String.valueOf(formData.getAverageLifespan())));
+            bird.setMigrationPattern(formData.getMigrationPattern());
+            bird.setYoutubeLink(formData.getYoutubeLink());
+            bird.setType(formData.getType());
 
-            if (birdRequest.getImage() != null && !birdRequest.getImage().isEmpty()) {
+            if (formData.getImage() != null && !formData.getImage().isEmpty()) {
                 try {
-                    String filePath = imageController.uploadImage(birdRequest.getImage());
+                    String filePath = imageController.uploadImage(formData.getImage());
                     bird.setImageUrl(filePath);
                 } catch (IOException e) {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -105,4 +106,27 @@ public class BirdFactoryImpl implements BirdFactory {
         }
 
     }
+
+    public BirdRequest mapToBirdRequest(FormData formData) {
+
+        BirdRequest birdRequest = modelMapper.map(formData, BirdRequest.class);
+        return birdRequest;
+
+    }
+
+    public ParrotRequest mapToParrotRequest (FormData formData) {
+        ParrotRequest parrotRequest = modelMapper.map(formData, ParrotRequest.class);
+        return parrotRequest;
+    }
+
+    public SongbirdRequest mapToSongbirdRequest (FormData formData) {
+        SongbirdRequest songbirdRequest = modelMapper.map(formData, SongbirdRequest.class);
+        return songbirdRequest;
+    }
+
+    public RaptorRequest mapToRaptorRequest (FormData formData) {
+        RaptorRequest raptorRequest = modelMapper.map(formData, RaptorRequest.class);
+        return raptorRequest;
+    }
+
 }
