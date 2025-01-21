@@ -1,9 +1,13 @@
 package com.birds.Birds.request;
 
+import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 
+
+
+@Data
 public class BirdRequest {
     @NotBlank
     private String species;
