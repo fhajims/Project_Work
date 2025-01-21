@@ -1,5 +1,6 @@
 package com.birds.Birds.controller;
 
+import com.birds.Birds.factory.BirdFactory;
 import com.birds.Birds.model.*;
 import com.birds.Birds.request.BirdRequest;
 import com.birds.Birds.service.ServiceInterfaces.*;
@@ -29,70 +30,15 @@ public class BirdController {
     private final IRaptorService raptorService;
     private final IParrotService parrotService;
     private final ISongbirdService songbirdService;
-
+    private final BirdFactory birdFactory;
     private final ImageController imageController;
 
     @PostMapping("/add")
     public ResponseEntity<?> addBird(@Valid @ModelAttribute BirdRequest birdRequest) {
 
+        return birdFactory.createBird(birdRequest);
 
 
-        try {
-
-            Bird bird;
-
-            // Instantiate the correct subclass based on the type
-            if ("Parrot".equalsIgnoreCase(birdRequest.getType())) {
-                bird = new Parrot();
-            } else if ("Songbird".equalsIgnoreCase(birdRequest.getType())) {
-                bird = new Songbird(); }
-                else if ("Raptor".equalsIgnoreCase(birdRequest.getType())) {
-                    bird = new Raptor();
-            } else {
-                bird = new Bird();
-            }
-
-            bird.setSpecies(birdRequest.getSpecies());
-            bird.setColor(birdRequest.getColor());
-            bird.setFlightless(birdRequest.isFlightless());
-            bird.setWingSpan(Double.parseDouble(birdRequest.getWingSpan()));
-            bird.setBeakLength(Double.parseDouble(birdRequest.getBeakLength()));
-            bird.setHabitat(birdRequest.getHabitat());
-            bird.setDiet(birdRequest.getDiet());
-            bird.setAverageLifespan(Integer.parseInt(birdRequest.getAverageLifespan()));
-            bird.setMigrationPattern(birdRequest.getMigrationPattern());
-            bird.setYoutubeLink(birdRequest.getYoutubeLink());
-            bird.setType(birdRequest.getType());
-
-            if (birdRequest.getImage() != null && !birdRequest.getImage().isEmpty()) {
-                try {
-                    String filePath = imageController.uploadImage(birdRequest.getImage());
-                    bird.setImageUrl(filePath);
-                } catch (IOException e) {
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                            .body("Failed to upload image: " + e.getMessage());
-                }
-            }
-
-            Bird savedBird;
-            if (bird instanceof Parrot) {
-                savedBird = parrotService.addParrot((Parrot) bird);
-            } else if (bird instanceof Songbird) {
-                savedBird = songbirdService.addSongbird((Songbird) bird);
-            } else if (bird instanceof Raptor) {
-                savedBird = raptorService.addRaptor((Raptor) bird); }
-            else {
-                return ResponseEntity.badRequest().body("Unhandled bird type: " + birdRequest.getType());
-            }
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedBird);
-
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("Invalid number format: " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An error occurred: " + e.getMessage());
-        }
     }
 
 

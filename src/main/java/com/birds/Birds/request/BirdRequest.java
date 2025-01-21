@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 public class BirdRequest {
+
     @NotBlank
     private String species;
 
