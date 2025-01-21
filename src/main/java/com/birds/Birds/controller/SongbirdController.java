@@ -33,7 +33,7 @@ public class SongbirdController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         List<SongbirdDto> songbirdDtos = songbirds.stream()
-                .map(this::convertToDto)
+                .map(songbirdService::convertToDto)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(songbirdDtos);
     }
