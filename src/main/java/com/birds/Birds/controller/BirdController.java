@@ -56,7 +56,7 @@ public class BirdController {
                 else if ("Raptor".equalsIgnoreCase(type)) {
                     bird = new Raptor();
             } else {
-                return ResponseEntity.badRequest().body("Invalid bird type: " + type);
+                bird = new Bird();
             }
 
             bird.setSpecies(species);
