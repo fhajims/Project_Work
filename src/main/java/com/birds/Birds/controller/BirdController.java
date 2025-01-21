@@ -1,6 +1,7 @@
 package com.birds.Birds.controller;
 
 import com.birds.Birds.model.*;
+import com.birds.Birds.request.BirdRequest;
 import com.birds.Birds.service.ServiceInterfaces.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -12,6 +13,7 @@ import com.birds.Birds.service.BirdService;
 import com.birds.Birds.service.ConservationStatusService;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,49 +33,40 @@ public class BirdController {
     private final ImageController imageController;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addBird(
-            @RequestParam("species") String species,
-            @RequestParam("color") String color,
-            @RequestParam("flightless") boolean flightless,
-            @RequestParam("wingSpan") String wingSpan,
-            @RequestParam("beakLength") String beakLength,
-            @RequestParam("habitat") String habitat,
-            @RequestParam("diet") String diet,
-            @RequestParam("averageLifespan") String averageLifespan,
-            @RequestParam("migrationPattern") String migrationPattern,
-            @RequestParam("youtubeLink") String youtubeLink,
-            @RequestParam("type") String type,
-            @RequestParam(value = "image", required = false) MultipartFile image) {
+    public ResponseEntity<?> addBird(@Valid @ModelAttribute BirdRequest birdRequest) {
+
+
 
         try {
+
             Bird bird;
 
             // Instantiate the correct subclass based on the type
-            if ("Parrot".equalsIgnoreCase(type)) {
+            if ("Parrot".equalsIgnoreCase(birdRequest.getType())) {
                 bird = new Parrot();
-            } else if ("Songbird".equalsIgnoreCase(type)) {
+            } else if ("Songbird".equalsIgnoreCase(birdRequest.getType())) {
                 bird = new Songbird(); }
-                else if ("Raptor".equalsIgnoreCase(type)) {
+                else if ("Raptor".equalsIgnoreCase(birdRequest.getType())) {
                     bird = new Raptor();
             } else {
                 bird = new Bird();
             }
 
-            bird.setSpecies(species);
-            bird.setColor(color);
-            bird.setFlightless(flightless);
-            bird.setWingSpan(Double.parseDouble(wingSpan));
-            bird.setBeakLength(Double.parseDouble(beakLength));
-            bird.setHabitat(habitat);
-            bird.setDiet(diet);
-            bird.setAverageLifespan(Integer.parseInt(averageLifespan));
-            bird.setMigrationPattern(migrationPattern);
-            bird.setYoutubeLink(youtubeLink);
-            bird.setType(type);
+            bird.setSpecies(birdRequest.getSpecies());
+            bird.setColor(birdRequest.getColor());
+            bird.setFlightless(birdRequest.isFlightless());
+            bird.setWingSpan(Double.parseDouble(birdRequest.getWingSpan()));
+            bird.setBeakLength(Double.parseDouble(birdRequest.getBeakLength()));
+            bird.setHabitat(birdRequest.getHabitat());
+            bird.setDiet(birdRequest.getDiet());
+            bird.setAverageLifespan(Integer.parseInt(birdRequest.getAverageLifespan()));
+            bird.setMigrationPattern(birdRequest.getMigrationPattern());
+            bird.setYoutubeLink(birdRequest.getYoutubeLink());
+            bird.setType(birdRequest.getType());
 
-            if (image != null && !image.isEmpty()) {
+            if (birdRequest.getImage() != null && !birdRequest.getImage().isEmpty()) {
                 try {
-                    String filePath = imageController.uploadImage(image);
+                    String filePath = imageController.uploadImage(birdRequest.getImage());
                     bird.setImageUrl(filePath);
                 } catch (IOException e) {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -89,7 +82,7 @@ public class BirdController {
             } else if (bird instanceof Raptor) {
                 savedBird = raptorService.addRaptor((Raptor) bird); }
             else {
-                return ResponseEntity.badRequest().body("Unhandled bird type: " + type);
+                return ResponseEntity.badRequest().body("Unhandled bird type: " + birdRequest.getType());
             }
 
             return ResponseEntity.status(HttpStatus.CREATED).body(savedBird);
