@@ -1,6 +1,7 @@
 package com.birds.Birds.service.ServiceInterfaces;
 
 import com.birds.Birds.model.ConservationStatus;
+import com.birds.Birds.request.FormData;
 import org.springframework.http.ResponseEntity;
 import com.birds.Birds.dto.BirdDto;
 import com.birds.Birds.model.Bird;
@@ -30,5 +31,7 @@ public interface IBirdService {
     List<BirdDto> getParrots();
     List<BirdDto> getRaptors();
     List<BirdDto> getWaterfowl();
+
+    ResponseEntity<?> editBird(FormData formData, Long id);
 }
 
