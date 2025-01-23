@@ -57,7 +57,9 @@ public class Bird {
     @Column(name = "type")
     private String type;
 
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "bird", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Image> images;
 
     @JsonIgnore
     @OneToMany(mappedBy = "bird", cascade = CascadeType.ALL, orphanRemoval = true)
