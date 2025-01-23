@@ -33,5 +33,7 @@ public interface IBirdService {
     List<BirdDto> getWaterfowl();
 
     ResponseEntity<?> editBird(FormData formData, Long id);
+
+    ResponseEntity<?> deleteBird(Long id);
 }
 
