@@ -7,6 +7,7 @@ import com.birds.Birds.repository.BirdRepository;
 import com.birds.Birds.request.FormData;
 import com.birds.Birds.service.ServiceInterfaces.IBirdService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class BirdService implements IBirdService {
 
     private final BirdRepository birdRepository;
@@ -103,6 +105,21 @@ public class BirdService implements IBirdService {
         } else {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bird with ID " + id + " not found");
+        }
+    }
+
+    public ResponseEntity<?> deleteBird(Long id) {
+        if (!birdRepository.existsById(id)) {
+            return new ResponseEntity<>("Bird not found", HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            birdRepository.deleteById(id);
+            return new ResponseEntity<>("Bird deleted successfully", HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+
+            log.error("Error deleting bird with id {}: {}", id, e.getMessage());
+            return new ResponseEntity<>("Failed to delete bird", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -51,6 +51,11 @@ public class BirdController {
         return birdService.editBird(formData, id);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteBird(@PathVariable Long id) {
+        log.info("API POST /edit/{id} called {}", id);
+        return birdService.deleteBird(id);
+    }
 
 
 
