@@ -6,6 +6,7 @@ import com.birds.Birds.request.BirdRequest;
 import com.birds.Birds.request.FormData;
 import com.birds.Birds.service.ServiceInterfaces.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/birds")
 @RestController
+@Slf4j
 public class BirdController {
 
     private final IBirdService birdService;
@@ -42,6 +44,13 @@ public class BirdController {
 
 
     }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<?> editBird(@Valid @RequestBody FormData formData, @PathVariable Long id) {
+        log.info("API POST /edit/{id} called {}", formData);
+        return birdService.editBird(formData, id);
+    }
+
 
 
 

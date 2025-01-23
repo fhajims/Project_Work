@@ -4,6 +4,7 @@ import com.birds.Birds.model.Bird;
 import com.birds.Birds.model.ConservationStatus;
 import com.birds.Birds.repository.BirdRepository;
 
+import com.birds.Birds.request.FormData;
 import com.birds.Birds.service.ServiceInterfaces.IBirdService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -76,6 +78,34 @@ public class BirdService implements IBirdService {
         return getBirdsByType("Waterfowl");
     }
 
+
+    @Override
+    public ResponseEntity<?> editBird(FormData formData, Long id) {
+        Optional<Bird> optionalBird = birdRepository.findById(id);
+
+        if (optionalBird.isPresent()) {
+            Bird bird = optionalBird.get();
+
+            bird.setSpecies(formData.getSpecies());
+            bird.setColor(formData.getColor());
+            bird.setHabitat(formData.getHabitat());
+            bird.setDiet(formData.getDiet());
+            bird.setAverageLifespan(formData.getAverageLifespan());
+            bird.setMigrationPattern(formData.getMigrationPattern());
+            bird.setType(formData.getType());
+            bird.setYoutubeLink(formData.getYoutubeLink());
+
+
+            birdRepository.save(bird);
+
+
+            return ResponseEntity.ok(bird);
+        } else {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bird with ID " + id + " not found");
+        }
+    }
+
     private List<BirdDto> getBirdsByType(String type) {
         List<Bird> birds = birdRepository.findByType(type);
         return birds.stream()
@@ -109,5 +139,7 @@ public class BirdService implements IBirdService {
     public List<Bird> findAllParrots() {
         return birdRepository.findByType("Parrot");
     }
+
+
 
 }
