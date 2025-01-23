@@ -26,8 +26,8 @@ public class Parrot extends Bird {
     private String vocalAbility;
 
 
-    public Parrot(Long id, String species, String color, Boolean flightless, Double wingSpan, Double beakLength, String habitat, String diet, Integer averageLifespan, String migrationPattern, String imageUrl, String youtubeLink, String type, HashSet<Observation> observations, ConservationStatus conservationStatus, String colorVariation, String intelligenceLevel, String vocalAbility) {
-        super(id, species, color, flightless, wingSpan, beakLength, habitat, diet, averageLifespan, migrationPattern, imageUrl, youtubeLink, type, observations, conservationStatus);
+    public Parrot(Long id, String species, String color, Boolean flightless, Double wingSpan, Double beakLength, String habitat, String diet, Integer averageLifespan, String migrationPattern, String imageUrl, String youtubeLink, String type, HashSet<Observation> observations, HashSet<Image> images, ConservationStatus conservationStatus, String colorVariation, String intelligenceLevel, String vocalAbility) {
+        super(id, species, color, flightless, wingSpan, beakLength, habitat, diet, averageLifespan, migrationPattern, imageUrl, youtubeLink, type, images, observations, conservationStatus);
         this.colorVariation = colorVariation;
         this.intelligenceLevel = intelligenceLevel;
         this.vocalAbility = vocalAbility;
